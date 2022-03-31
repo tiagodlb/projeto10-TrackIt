@@ -1,12 +1,13 @@
 import styled from "styled-components"
-import { useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
 
 
 export default function Login(){
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    const [cor, setCor] = useState("#FFFFFF")
+    const [corInput, setCorInput] = useState("#DBDBDB")
 
     function submitarInfo(){
 
@@ -24,17 +25,23 @@ export default function Login(){
                         id="email"
                         value={email}
                         placeholder="email" 
-                        onChange={(e) => setEmail(e.target.value)}/>
+                        onChange={(e) => setEmail(e.target.value)}
+                        cor = {cor}
+                        corInput = {corInput}/>
                         <Input
                         type="password"
                         id="senha"
                         value={senha}
                         placeholder="senha"
-                        onChange={(e) => setSenha(e.target.value)}/>
+                        onChange={(e) => setSenha(e.target.value)}
+                        cor = {cor}
+                        corInput = {corInput}/>
                         <Button type="submit" > Entrar </Button>
                     </Form>
                 </div>
-                <P>Não tem uma conta? Cadastre-se!</P>
+                <Link to={"/cadastro"}>
+                    <P>Não tem uma conta? Cadastre-se!</P>
+                </Link>
             </Main>
         </>
     )
@@ -60,7 +67,7 @@ const Input = styled.input`
     width: 303px;
     height: 45px;
     display:flex;
-    background: #FFFFFF;
+    background: ${(props) => props.cor};
     border: 1px solid #D5D5D5;
     box-sizing: border-box;
     border-radius: 5px;
@@ -73,7 +80,7 @@ const Input = styled.input`
         font-weight: 400;
         font-size: 19.976px;
         line-height: 25px;
-        color: #DBDBDB;
+        color: ${(props) => props.corInput};
         padding: 11px;
     }
 
@@ -84,6 +91,7 @@ const Button = styled.button`
     height: 45px;
     background: #52B6FF;
     border-radius: 4.63636px;
+    border: 0px;
 
     /* Texto */
 
