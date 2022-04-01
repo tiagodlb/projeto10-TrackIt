@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ThreeDots } from  'react-loader-spinner'
 
 export default function Cadastro(){
@@ -19,9 +19,8 @@ export default function Cadastro(){
     async function submitarInfo(event){
         event.preventDefault();
         setDesabilitar(true)
-        setCor()
-        setCorInput()
-        setLoading()
+        setCor("#AFAFAF")
+        setCorInput("#D4D4D4")
         setOpacity(0.7)
         setLoading(<ThreeDots color="#ffffff" height={13} width={51} />)
         const promise = await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",{
@@ -29,14 +28,15 @@ export default function Cadastro(){
                 name: `${nome}`,
                 image: `${urlFoto}`,
                 password: `${senha}`
-            }).then(() => {
+            }).then((response) => {
             navigate("/")
+            console.log(promise)
          }).catch(tratarErro)
     }
 
     function tratarErro(erro) {
-        console.log("Status code: " + erro.response.status); // Ex: 404
-          console.log("Mensagem de erro: " + erro.response.data); // Ex: Not Found
+        console.log("Status code: " + erro.status); // Ex: 404
+        console.log("Mensagem de erro: " + erro.data); // Ex: Not Found
     }
 
     return(

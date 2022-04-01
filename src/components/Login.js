@@ -1,18 +1,44 @@
 import styled from "styled-components"
+import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { ThreeDots } from  'react-loader-spinner'
 
 
-export default function Login(){
+export default function Login(props){
+    const {finalizarLogin} = props
+    const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
+    const [desabilitar, setDesabilitar] = useState(false)
     const [cor, setCor] = useState("#FFFFFF")
     const [corInput, setCorInput] = useState("#DBDBDB")
+    const [loading, setLoading] = useState("Entrar")
+    const [opacity, setOpacity] = useState("1")
 
-    function submitarInfo(){
-
+    async function submitarInfo(event){
+        event.preventDefault();
+        setDesabilitar(true)
+        setCor("#AFAFAF")
+        setCorInput("#D4D4D4")
+        setOpacity(0.7)
+        setLoading(<ThreeDots color="#ffffff" height={13} width={51} />)
+        const promise = await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",{
+            email,
+            password: `${senha}`
+        }).then((response) => {
+            const {data} = response
+            finalizarLogin({
+                oi: data.id
+            })
+            navigate("/habitos")
+        }).catch(tratarErro)
     }
 
+    function tratarErro(erro) {
+        console.log(erro); // Ex: 404
+          console.log(erro); // Ex: Not Found
+    }
 
     return(
         <>
@@ -26,6 +52,8 @@ export default function Login(){
                         value={email}
                         placeholder="email" 
                         onChange={(e) => setEmail(e.target.value)}
+                        required={true}
+                        disabled={desabilitar}
                         cor = {cor}
                         corInput = {corInput}/>
                         <Input
@@ -34,9 +62,11 @@ export default function Login(){
                         value={senha}
                         placeholder="senha"
                         onChange={(e) => setSenha(e.target.value)}
+                        required={true}
+                        disabled={desabilitar}
                         cor = {cor}
                         corInput = {corInput}/>
-                        <Button type="submit" > Entrar </Button>
+                        <Button type="submit" opacity={opacity}>{loading}</Button>
                     </Form>
                 </div>
                 <Link to={"/cadastro"}>
@@ -92,6 +122,10 @@ const Button = styled.button`
     background: #52B6FF;
     border-radius: 4.63636px;
     border: 0px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    opacity: ${(props) => props.opacity};
 
     /* Texto */
 
