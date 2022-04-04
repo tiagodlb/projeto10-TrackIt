@@ -3,7 +3,6 @@ import UserContext from "../contexts/UserContext";
 import dayjs from "dayjs"
 import ptBr from "dayjs/locale/pt-br"
 import { useState, useEffect, useContext } from "react";
-import { ThreeDots } from  'react-loader-spinner'
 import axios from "axios";
 
 export default function ConteudoHoje(){
@@ -11,7 +10,7 @@ export default function ConteudoHoje(){
     const {percentage, setPercentage} = useContext(UserContext);
     const [habitosHoje, setHabitosHoje] = useState([])
     const [hoje, setHoje] = useState()
-    const [progresso, setProgresso] = useState([])
+    const [progresso] = useState([])
     const [feito, setFeito] = useState([])
 
     if(habitosHoje.length !== 0){
@@ -44,7 +43,7 @@ export default function ConteudoHoje(){
             }
         ).catch(tratarErro)
 
-    },[])
+    },[infoLogin.token])
 
     function tratarErro(erro) {
         alert("Deu ruim! Por favor, insira os dados novamente");

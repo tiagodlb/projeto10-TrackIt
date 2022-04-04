@@ -1,13 +1,12 @@
 import styled from "styled-components"
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 export default function Historico(){
-    const navigate = useNavigate();
-    const {infoLogin, setInfoLogin} = useContext(UserContext)
+    const {infoLogin} = useContext(UserContext)
     const {percentage,} = useContext(UserContext)
     return(
         <>

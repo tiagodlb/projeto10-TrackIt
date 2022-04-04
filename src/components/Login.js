@@ -17,7 +17,7 @@ export default function Login(){
     const [corInput, setCorInput] = useState("#DBDBDB")
     const [loading, setLoading] = useState("Entrar")
     const [opacity, setOpacity] = useState("1")
-
+    const localStorage = localStorage.getItem("userDataStorage")
     async function submitarInfo(event){
         event.preventDefault();
         setDesabilitar(true)

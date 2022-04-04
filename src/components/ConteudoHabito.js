@@ -5,13 +5,12 @@ import { useState, useEffect, useContext } from "react";
 import { ThreeDots } from  'react-loader-spinner'
 
 export default function ConteudoHabito(){
-    const {infoLogin, setInfoLogin} = useContext(UserContext);
-    const {percentage, setPercentage} = useContext(UserContext);
+    const {infoLogin, } = useContext(UserContext);
     const [titulo, setTitulo] = useState("");
     const [habitos,setHabitos] = useState([]);
     const [diasEscolhidos, setDiasEscolhidos] = useState([])
     const dias = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-    const {carregar, setCarregar} = useContext(UserContext)
+    const {carregar} = useContext(UserContext)
     const {habitoNovo, setHabitoNovo} = useContext(UserContext)
     /* Desabilitar e visual */
     const [desabilitar, setDesabilitar] = useState(false)
@@ -35,7 +34,7 @@ export default function ConteudoHabito(){
                         (response) => {
                         setHabitos(response.data)
                     }).catch(tratarErro)
-                },[]
+                },[infoLogin.token]
         )
 
     function tratarErro(erro) {
@@ -179,28 +178,6 @@ const P = styled.p`
     font-weight: 400;
     font-size: 17.976px;
     color: #52B6FF;
-`
-
-const ContainerCriar = styled.div`
-    width: calc(100% - 36px);
-    position: absolute;
-    display:flex;
-    flex-wrap: wrap;
-    top: calc(67px + 38px + 28px + 25px);
-    left: 18px;
-`
-
-const Container = styled.div`
-    width: calc(100% - 18*2px);
-    heigth: 100%;
-    position: absolute;
-    top: calc(67px + 28px);
-    display: flex;
-    justify-content: space-between;
-    margin-left: 18px;
-`
-const Span = styled.span`
-    margin-bottom: 5px;
 `
 const Container2 = styled.div`
     width: 340px;
