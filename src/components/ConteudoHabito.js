@@ -100,7 +100,6 @@ export default function ConteudoHabito(){
             const promise = axios.delete(URL,config)
             habitos.splice(index,1)
             promise.then(()=> setHabitos([...habitos]))
-            setPercentage(0)
         }
     }
 

@@ -8,7 +8,7 @@ import 'react-circular-progressbar/dist/styles.css';
 export default function Historico(){
     const navigate = useNavigate();
     const {infoLogin, setInfoLogin} = useContext(UserContext)
-    const {percentage, setPercentage} = useContext(UserContext)
+    const {percentage,} = useContext(UserContext)
     return(
         <>
             <Header>

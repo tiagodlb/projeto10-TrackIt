@@ -10,8 +10,8 @@ import ptBr from "dayjs/locale/pt-br"
 
 export default function Hoje(){
     const navigate = useNavigate();
-    const {infoLogin, setInfoLogin} = useContext(UserContext)
-    const {percentage, setPercentage} = useContext(UserContext)
+    const {infoLogin} = useContext(UserContext)
+    const {percentage} = useContext(UserContext)
     return(
         <>
             <Header>
