@@ -3,10 +3,12 @@ import axios from "axios"
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { ThreeDots } from  'react-loader-spinner'
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 
-export default function Login(props){
-    const {finalizarLogin} = props
+export default function Login(){
+    const {setInfoLogin} = useContext(UserContext)
     const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [senha, setSenha] = useState("")
@@ -23,21 +25,31 @@ export default function Login(props){
         setCorInput("#D4D4D4")
         setOpacity(0.7)
         setLoading(<ThreeDots color="#ffffff" height={13} width={51} />)
-        const promise = await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",{
+        await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",{
             email,
             password: `${senha}`
         }).then((response) => {
             const {data} = response
-            finalizarLogin({
-                oi: data.id
+            setInfoLogin({
+                id: data.id,
+                name: data.name,
+                image: data.image,
+                email: data.email,
+                senha: data.password,
+                token: data.token
             })
-            navigate("/habitos")
+            navigate("/hoje")
         }).catch(tratarErro)
     }
 
     function tratarErro(erro) {
-        console.log(erro); // Ex: 404
-          console.log(erro); // Ex: Not Found
+        alert("Poxa amigo, deu xabu :(\nInsere os dados de novo ai")
+        setDesabilitar(false)
+        setCor("#FFFFFF")
+        setCorInput("#DBDBDB")
+        setOpacity(1)
+        setLoading("Entrar")
+        console.log(erro)
     }
 
     return(

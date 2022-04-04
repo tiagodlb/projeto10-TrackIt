@@ -23,20 +23,24 @@ export default function Cadastro(){
         setCorInput("#D4D4D4")
         setOpacity(0.7)
         setLoading(<ThreeDots color="#ffffff" height={13} width={51} />)
-        const promise = await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",{
+        await axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",{
                 email: `${email}`,
                 name: `${nome}`,
                 image: `${urlFoto}`,
                 password: `${senha}`
             }).then((response) => {
-            navigate("/")
-            console.log(promise)
+                navigate("/")
          }).catch(tratarErro)
     }
 
     function tratarErro(erro) {
-        console.log("Status code: " + erro.status); // Ex: 404
-        console.log("Mensagem de erro: " + erro.data); // Ex: Not Found
+        alert("Deu ruim! Por favor, insira os dados novamente");
+        setDesabilitar(false)
+        setCor("#FFFFFF")
+        setCorInput("#DBDBDB")
+        setOpacity(1)
+        setLoading("Entrar")
+        console.log(erro)
     }
 
     return(
